@@ -1,0 +1,44 @@
+services:
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:latest
+    container_name: redpanda
+    restart: unless-stopped
+    ports:
+      - "9092:9092"      # INTERNAL
+      - "19092:19092"    # EXTERNAL
+      - "9644:9644"      # Admin API
+      
+    command:
+      - redpanda start
+      - --overprovisioned
+      - --smp 1
+      - --memory 1G
+      - --reserve-memory 0M
+      - --node-id 0
+      - --check=false
+      - --set redpanda.auto_create_topics_enabled=true
+      - --set redpanda.kafka_api_listener_protocol_map=INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+
+   
+      # INTERNAL (container network)
+      - --kafka-addr INTERNAL://0.0.0.0:9092
+      - --advertise-kafka-addr INTERNAL://redpanda:9092
+
+      # EXTERNAL (host machine)
+      - --kafka-addr EXTERNAL://0.0.0.0:19092
+      - --advertise-kafka-addr EXTERNAL://localhost:19092
+
+    volumes:
+      - ./redpanda:/var/lib/redpanda/data
+
+  console:
+    image: docker.redpanda.com/redpandadata/console:latest
+    container_name: redpanda_console
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      # Console uses the INTERNAL listener
+      KAFKA_BROKERS: "redpanda:9092"
+    depends_on:
+      - redpanda

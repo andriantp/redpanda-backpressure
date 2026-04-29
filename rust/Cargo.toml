@@ -1,0 +1,32 @@
+[package]
+name = "rust_redpanda"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+# ==================================================
+# 🌀 Async Runtime
+# ==================================================
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync"] }
+futures = "0.3"
+
+# ==================================================
+# 🦀 Kafka/Redpanda Client — rust-rdkafka
+# ==================================================
+rdkafka = { version = "0.36", features = ["cmake-build", "sasl", "ssl"] }
+
+# ==================================================
+# 🧱 Infrastructure libraries
+# ==================================================
+anyhow = "1.0"
+log = "0.4"
+env_logger = "0.11"
+clap = { version = "4.5", features = ["derive"] }
+
+# ==================================================
+# 🔧 Utilities
+# ==================================================
+rand = "0.8"
+chrono = "0.4"
+dotenvy = "0.15"
