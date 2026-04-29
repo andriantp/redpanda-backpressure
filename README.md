@@ -235,6 +235,7 @@ The real goal is:
 Full explanation and deep dive:
 
 👉 *Rust Performance & Backpressure Engineering: What Breaks Under Load?*
+👉 *[Article](https://andriantriputra.medium.com/redpanda-rust-performance-backpressure-engineering-what-breaks-under-load-232b1cba79a1)
 
 ---
 
@@ -243,11 +244,6 @@ Full explanation and deep dive:
 > The fastest system is not the one with the highest throughput,
 > but the one that remains stable under pressure.
 
----
-
-## 🔗 Reference
-
-* Article: [redpanda-backpressure](https://andriantriputra.medium.com/redpanda-rust-performance-backpressure-engineering-what-breaks-under-load-232b1cba79a1)
 
 ---
 
